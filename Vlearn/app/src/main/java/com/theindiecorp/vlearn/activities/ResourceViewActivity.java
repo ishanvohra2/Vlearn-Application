@@ -58,6 +58,7 @@ public class ResourceViewActivity extends AppCompatActivity implements TopicsLis
         final Button viewOwnedBtn = findViewById(R.id.view_library_btn);
 
         final String courseId = getIntent().getStringExtra("courseId");
+        final String resourceType = getIntent().getStringExtra("resourceType");
 
         RecyclerView topicsRecyclerView = findViewById(R.id.recycler_view);
         topicsRecyclerView.setLayoutManager(new LinearLayoutManager(this));

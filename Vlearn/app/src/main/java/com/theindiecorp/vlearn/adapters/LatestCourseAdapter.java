@@ -109,8 +109,9 @@ public class LatestCourseAdapter extends RecyclerView.Adapter<LatestCourseAdapte
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                context.startActivity(new Intent(context, ResourceViewActivity.class).
-                        putExtra("courseId", course.getCourseId()));
+                context.startActivity(new Intent(context, ResourceViewActivity.class)
+                        .putExtra("courseId", course.getCourseId())
+                        .putExtra("resourceTyoe", course.getType()));
             }
         });
 

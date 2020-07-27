@@ -9,7 +9,9 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.Design.NoActionBar">
-        <activity android:name=".activities.TopicViewActivity"></activity>
+        <activity android:name=".activities.ViewPDFActivity"></activity>
+        <activity android:name=".activities.SubscribedResearchPaperActivity" />
+        <activity android:name=".activities.TopicViewActivity" />
         <activity android:name=".activities.SubscribedCourseActivity" />
         <activity android:name=".activities.ResourceViewActivity" />
         <activity android:name=".activities.SearchActivity" />
