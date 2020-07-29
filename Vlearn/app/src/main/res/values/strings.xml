@@ -51,6 +51,11 @@ Donec ullamcorper dictum blandit. Vestibulum porta leo vel volutpat malesuada. A
 
     <string name="Open">Mango</string>
     <string name="Close">Mango</string>
+    <string name="submit">Submit</string>
+    <string name="write_your_response">Write your response...</string>
+    <string name="submit">Submit</string>
+    <string name="topic_question_regarding_what">Topic (Question regarding what?)</string>
+    <string name="description">Description</string>
 
     <string-array name="venues">
         <item>Seminar Hall 06</item>
