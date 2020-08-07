@@ -59,7 +59,7 @@ public class discussionactivity extends AppCompatActivity {
         mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(discussionactivity, this, postanswer.class);
+                Intent intent = new Intent(discussionactivity, this, post_answer.class);
                 Bundle bndlanimation =
                         ActivityOptions.makeCustomAnimation(getApplicationContext() ).toBundle();
 
