@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.ResourceViewActivity"
+    android:background="@color/light_blue">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="@android:color/white"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="12dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/course_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:src="@drawable/ic_pencil_holder"
+                        android:layout_gravity="center|top"/>
+
+                    <ImageButton
+                        android:id="@+id/back_btn"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_baseline_arrow_back_24"
+                        android:background="@android:color/transparent"
+                        android:scaleType="centerCrop"
+                        android:layout_gravity="top|start"/>
+
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/category_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:textSize="18sp"
+                    android:textColor="@color/colorAccent"
+                    android:text="Category"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/course_name_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/black"
+                    android:text="Course Name"/>
+
+                <TextView
+                    android:id="@+id/enrollment_number_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black"
+                    android:text="100+ students"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textSize="21sp"
+                    android:textColor="@android:color/black"
+                    android:text="Introduction"/>
+
+                <TextView
+                    android:id="@+id/course_description_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/darker_gray"
+                    android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:textSize="21sp"
+                    android:textColor="@android:color/black"
+                    android:text="What will I learn?"/>
+
+                <TextView
+                    android:id="@+id/key_points_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:textSize="16sp"
+                    android:textColor="@android:color/darker_gray"
+                    android:text="1. Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n 2.Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."/>
+
+                <TextView
+                    android:id="@+id/read_more_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="Read More"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:id="@+id/topics_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:textSize="21sp"
+                        android:textColor="@android:color/black"
+                        android:text="Topics"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="70dp"
+                        tools:listitem="@layout/topics_list_item"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <Button
+            android:id="@+id/get_course_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="50dp"
+            android:paddingEnd="50dp"
+            android:text="Get Course"
+            android:background="@drawable/blue_button_background"
+            android:layout_gravity="center|bottom"
+            android:layout_marginBottom="5dp"/>
+
+        <Button
+            android:id="@+id/view_library_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="50dp"
+            android:paddingEnd="50dp"
+            android:text="View Course"
+            android:background="@drawable/blue_button_background"
+            android:layout_gravity="center|bottom"
+            android:layout_marginBottom="5dp"
+            android:visibility="gone"/>
+
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>
