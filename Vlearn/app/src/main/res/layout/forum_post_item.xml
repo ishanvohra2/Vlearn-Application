@@ -52,7 +52,8 @@
             android:layout_height="match_parent"
             android:paddingEnd="12dp"
             android:paddingStart="12dp"
-            android:src="@drawable/ic_menu" />
+            android:src="@drawable/ic_menu"
+            android:visibility="invisible"/>
 
     </LinearLayout>
 
