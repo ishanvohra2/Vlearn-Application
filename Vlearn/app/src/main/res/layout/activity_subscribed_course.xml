@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:id="@+id/coordinator_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,6 +10,7 @@
     android:background="@color/light_blue">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/subscribed_course_card_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardBackgroundColor="@android:color/white"
@@ -127,7 +129,7 @@
                     android:id="@+id/intro_layout"
                     android:orientation="vertical"
                     android:layout_margin="8dp"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -187,7 +189,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/discussion_recycler"
@@ -201,16 +203,16 @@
 
         </androidx.core.widget.NestedScrollView>
 
-    </androidx.cardview.widget.CardView>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_forum_post_fab"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="12dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:src="@drawable/ic_pen_drive"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_forum_post_fab"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="12dp"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:src="@drawable/ic_pen_drive"/>
+    </androidx.cardview.widget.CardView>
 
     <include layout="@layout/new_forum_post_sheet"/>
 

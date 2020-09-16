@@ -35,7 +35,6 @@ public class ForumPostAdapter extends RecyclerView.Adapter<ForumPostAdapter.MyVi
     private ArrayList<ForumPost> dataSet;
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private FirebaseStorage storage = FirebaseStorage.getInstance();
-    private boolean isLiked;
     private CommentListener commentListener;
 
     public interface CommentListener{
@@ -81,6 +80,7 @@ public class ForumPostAdapter extends RecyclerView.Adapter<ForumPostAdapter.MyVi
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
         final ForumPost post = dataSet.get(position);
+        final boolean[] isLiked = {false};
 
         holder.contentTv.setText(post.getContent());
 
@@ -120,11 +120,11 @@ public class ForumPostAdapter extends RecyclerView.Adapter<ForumPostAdapter.MyVi
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if(dataSnapshot.exists()){
-                            isLiked = true;
+                            isLiked[0] = true;
                             holder.likeBtn.setImageDrawable(context.getDrawable(R.drawable.liked));
                         }
                         else {
-                            isLiked = false;
+                            isLiked[0] = false;
                             holder.likeBtn.setImageDrawable(context.getDrawable(R.drawable.notliked));
                         }
                     }
@@ -138,7 +138,7 @@ public class ForumPostAdapter extends RecyclerView.Adapter<ForumPostAdapter.MyVi
         holder.likeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!isLiked){
+                if(!isLiked[0]){
                     databaseReference.child("likes").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .child(post.getPostId()).setValue(true);
                 }
