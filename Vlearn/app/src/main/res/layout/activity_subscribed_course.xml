@@ -17,203 +17,212 @@
         android:layout_margin="8dp"
         app:cardCornerRadius="12dp">
 
-        <androidx.core.widget.NestedScrollView
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <LinearLayout
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:id="@+id/course_image"
-                        android:layout_width="match_parent"
-                        android:layout_height="180dp"
-                        android:src="@drawable/ic_pencil_holder"
-                        android:layout_gravity="center|top"/>
-
-                    <ImageButton
-                        android:id="@+id/back_btn"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/ic_baseline_arrow_back_24"
-                        android:background="@android:color/transparent"
-                        android:scaleType="centerCrop"
-                        android:layout_gravity="top|start"/>
-
-                </FrameLayout>
-
-                <TextView
-                    android:id="@+id/category_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:textSize="18sp"
-                    android:textColor="@color/colorAccent"
-                    android:text="Category"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/course_name_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:textSize="24sp"
-                    android:textColor="@android:color/black"
-                    android:text="Course Name"/>
-
-                <TextView
-                    android:id="@+id/enrollment_number_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"
-                    android:text="Your Progress"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="42dp"
-                    android:background="@drawable/tab_background"
-                    android:orientation="horizontal"
-                    android:layout_margin="12dp"
-                    android:layout_gravity="center"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/show_intro_tv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Intro"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="17sp"
-                        android:padding="8dp"
-                        android:layout_weight="1"
-                        android:textAlignment="center"/>
-
-                    <TextView
-                        android:id="@+id/show_topics_tv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Topics"
-                        android:textColor="@android:color/black"
-                        android:textSize="17sp"
-                        android:padding="8dp"
-                        android:layout_weight="1"
-                        android:textAlignment="center"/>
-
-                    <TextView
-                        android:id="@+id/show_discussion_tv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Discussion"
-                        android:textColor="@android:color/black"
-                        android:textSize="17sp"
-                        android:padding="8dp"
-                        android:layout_weight="1"
-                        android:textAlignment="center"/>
-
-                </LinearLayout>
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/intro_layout"
-                    android:orientation="vertical"
-                    android:layout_margin="8dp"
-                    android:visibility="visible">
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/course_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="180dp"
+                            android:src="@drawable/ic_pencil_holder"
+                            android:layout_gravity="center|top"/>
+
+                        <ImageButton
+                            android:id="@+id/back_btn"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/ic_baseline_arrow_back_24"
+                            android:background="@android:color/transparent"
+                            android:scaleType="centerCrop"
+                            android:layout_gravity="top|start"/>
+
+                    </FrameLayout>
 
                     <TextView
+                        android:id="@+id/category_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:textSize="18sp"
+                        android:textColor="@color/colorAccent"
+                        android:text="Category"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/course_name_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
-                        android:textSize="21sp"
+                        android:textSize="24sp"
                         android:textColor="@android:color/black"
-                        android:text="Introduction"/>
+                        android:text="Course Name"/>
 
                     <TextView
-                        android:id="@+id/course_description_tv"
+                        android:id="@+id/enrollment_number_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
-                        android:textSize="16sp"
-                        android:textColor="@android:color/darker_gray"
-                        android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."/>
+                        android:layout_marginStart="8dp"
+                        android:textSize="18sp"
+                        android:textColor="@android:color/black"
+                        android:text="Your Progress"/>
 
-                    <TextView
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:background="@drawable/tab_background"
+                        android:orientation="horizontal"
+                        android:layout_margin="12dp"
+                        android:layout_gravity="center"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/show_intro_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Intro"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="17sp"
+                            android:padding="8dp"
+                            android:layout_weight="1"
+                            android:textAlignment="center"/>
+
+                        <TextView
+                            android:id="@+id/show_topics_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Topics"
+                            android:textColor="@android:color/black"
+                            android:textSize="17sp"
+                            android:padding="8dp"
+                            android:layout_weight="1"
+                            android:textAlignment="center"/>
+
+                        <TextView
+                            android:id="@+id/show_discussion_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Discussion"
+                            android:textColor="@android:color/black"
+                            android:textSize="17sp"
+                            android:padding="8dp"
+                            android:layout_weight="1"
+                            android:textAlignment="center"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/intro_layout"
+                        android:orientation="vertical"
+                        android:layout_margin="8dp"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:textSize="21sp"
+                            android:textColor="@android:color/black"
+                            android:text="Introduction"/>
+
+                        <TextView
+                            android:id="@+id/course_description_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:textSize="16sp"
+                            android:textColor="@android:color/darker_gray"
+                            android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:textSize="21sp"
+                            android:textColor="@android:color/black"
+                            android:text="What will I learn?"/>
+
+                        <TextView
+                            android:id="@+id/key_points_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:textSize="16sp"
+                            android:textColor="@android:color/darker_gray"
+                            android:text="1. Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n 2.Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/topics_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="8dp"
-                        android:textSize="21sp"
-                        android:textColor="@android:color/black"
-                        android:text="What will I learn?"/>
+                        android:visibility="gone">
 
-                    <TextView
-                        android:id="@+id/key_points_tv"
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/topics_recycler"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:listitem="@layout/topics_list_item"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/discussion_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:textSize="16sp"
-                        android:textColor="@android:color/darker_gray"
-                        android:text="1. Lorem Ipsum is simply dummy text of the printing and typesetting industry.\n 2.Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."/>
+                        android:layout_margin="8dp"
+                        android:visibility="gone">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/discussion_recycler"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:listitem="@layout/forum_post_item"/>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/topics_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:visibility="gone">
+            </androidx.core.widget.NestedScrollView>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/topics_recycler"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        tools:listitem="@layout/topics_list_item"/>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/add_forum_post_fab"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="12dp"
+                android:visibility="gone"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:src="@drawable/ic_pen_drive"/>
 
-                </LinearLayout>
+            <include layout="@layout/new_forum_post_sheet"/>
 
-                <LinearLayout
-                    android:id="@+id/discussion_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:visibility="gone">
+            <include layout="@layout/comments_bottom_sheet"/>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/discussion_recycler"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        tools:listitem="@layout/forum_post_item"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </androidx.core.widget.NestedScrollView>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/add_forum_post_fab"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="12dp"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:src="@drawable/ic_pen_drive"/>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     </androidx.cardview.widget.CardView>
-
-    <include layout="@layout/new_forum_post_sheet"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

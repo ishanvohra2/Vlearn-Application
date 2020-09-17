@@ -6,11 +6,13 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,22 +34,27 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.mikhaellopez.circularimageview.CircularImageView;
 import com.theindiecorp.vlearn.R;
+import com.theindiecorp.vlearn.adapters.CommentsAdapter;
 import com.theindiecorp.vlearn.adapters.ForumPostAdapter;
 import com.theindiecorp.vlearn.adapters.TopicsListAdapter;
+import com.theindiecorp.vlearn.data.Comment;
 import com.theindiecorp.vlearn.data.Course;
 import com.theindiecorp.vlearn.data.ForumPost;
 import com.theindiecorp.vlearn.data.Topic;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 
 public class SubscribedCourseActivity extends AppCompatActivity implements TopicsListAdapter.RvListener, ForumPostAdapter.CommentListener {
 
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
     private String courseId;
-    private BottomSheetBehavior bottomSheetBehavior;
-    private LinearLayout bottomSheet;
+    private BottomSheetBehavior bottomSheetBehavior, commentSheetBehaviour;
+    private LinearLayout bottomSheet, commentBottomSheet;
 
     int PLACE_PICKER_REQUEST = 12;
     private static final int PICK_IMAGE = 100;
@@ -63,6 +70,7 @@ public class SubscribedCourseActivity extends AppCompatActivity implements Topic
         final TextView courseNameTv = findViewById(R.id.course_name_tv);
         final TextView descriptionTv = findViewById(R.id.course_description_tv);
         final TextView keyPointsTv = findViewById(R.id.key_points_tv);
+        final FloatingActionButton floatingActionButton = findViewById(R.id.add_forum_post_fab);
 
         courseId = getIntent().getStringExtra("courseId");
 
@@ -130,6 +138,7 @@ public class SubscribedCourseActivity extends AppCompatActivity implements Topic
                         p.setPostId(snapshot.getKey());
                         posts.add(p);
                     }
+                    Collections.reverse(posts);
                     forumPostAdapter.setPosts(posts);
                     forumPostAdapter.notifyDataSetChanged();
                 }
@@ -149,6 +158,7 @@ public class SubscribedCourseActivity extends AppCompatActivity implements Topic
         final LinearLayout topicsLayout = findViewById(R.id.topics_layout);
 
         showIntro.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("RestrictedApi")
             @Override
             public void onClick(View v) {
                 showIntro.setTextColor(getResources().getColor(R.color.colorPrimary));
@@ -157,10 +167,12 @@ public class SubscribedCourseActivity extends AppCompatActivity implements Topic
                 introLayout.setVisibility(View.VISIBLE);
                 topicsLayout.setVisibility(View.GONE);
                 discussionLayout.setVisibility(View.GONE);
+                floatingActionButton.setVisibility(View.GONE);
             }
         });
 
         showTopics.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("RestrictedApi")
             @Override
             public void onClick(View v) {
                 showIntro.setTextColor(getResources().getColor(android.R.color.black));
@@ -169,10 +181,12 @@ public class SubscribedCourseActivity extends AppCompatActivity implements Topic
                 introLayout.setVisibility(View.GONE);
                 topicsLayout.setVisibility(View.VISIBLE);
                 discussionLayout.setVisibility(View.GONE);
+                floatingActionButton.setVisibility(View.GONE);
             }
         });
 
         showDiscussion.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("RestrictedApi")
             @Override
             public void onClick(View v) {
                 showIntro.setTextColor(getResources().getColor(android.R.color.black));
@@ -181,6 +195,7 @@ public class SubscribedCourseActivity extends AppCompatActivity implements Topic
                 introLayout.setVisibility(View.GONE);
                 topicsLayout.setVisibility(View.GONE);
                 discussionLayout.setVisibility(View.VISIBLE);
+                floatingActionButton.setVisibility(View.VISIBLE);
             }
         });
 
@@ -189,27 +204,10 @@ public class SubscribedCourseActivity extends AppCompatActivity implements Topic
         bottomSheet = findViewById(R.id.add_post_bottom_sheet);
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
 
-        FloatingActionButton floatingActionButton = findViewById(R.id.add_forum_post_fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-            }
-        });
-
-        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-            @Override
-            public void onStateChanged(@NonNull View view, int i) {
-                if(i == BottomSheetBehavior.STATE_EXPANDED){
-                    cardView.setVisibility(View.GONE);
-                }
-                else
-                    cardView.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onSlide(@NonNull View view, float v) {
-
             }
         });
 
@@ -304,7 +302,70 @@ public class SubscribedCourseActivity extends AppCompatActivity implements Topic
     }
 
     @Override
-    public void viewComments(String postId) {
+    public void viewComments(final String postId) {
+        commentBottomSheet = findViewById(R.id.comments_bottom_sheet);
+        commentSheetBehaviour = BottomSheetBehavior.from(commentBottomSheet);
 
+        commentSheetBehaviour.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+        CircularImageView profileImg = commentBottomSheet.findViewById(R.id.comment_sheet_profile_pic_iv);
+        final EditText commentEt = commentBottomSheet.findViewById(R.id.comment_sheet_comment_et);
+        ImageButton sendBtn = commentBottomSheet.findViewById(R.id.comment_sheet_send_btn);
+        ImageButton backBtn = commentBottomSheet.findViewById(R.id.comment_sheet_back_btn);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                commentSheetBehaviour.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            }
+        });
+
+        sendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(TextUtils.isEmpty(commentEt.getText().toString()))
+                    return;
+
+                Date date = new Date();
+
+                Comment comment = new Comment(
+                        databaseReference.push().getKey(),
+                        commentEt.getText().toString(),
+                        FirebaseAuth.getInstance().getCurrentUser().getUid(),
+                        date.getTime());
+
+                databaseReference.child("forumPosts").child(courseId).child(postId).child("comments").child(comment.getCommentId())
+                        .setValue(comment);
+                commentEt.setText("");
+            }
+        });
+
+        RecyclerView recyclerView = findViewById(R.id.comment_sheet_scroll_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        final CommentsAdapter adapter = new CommentsAdapter(this, new ArrayList<Comment>());
+        recyclerView.setAdapter(adapter);
+
+        databaseReference.child("forumPosts").child(courseId).child(postId).child("comments").addValueEventListener(
+                new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    ArrayList<Comment> comments = new ArrayList<>();
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        Comment comment = snapshot.getValue(Comment.class);
+                        comments.add(comment);
+                    }
+                    Collections.reverse(comments);
+                    adapter.setComments(comments);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }

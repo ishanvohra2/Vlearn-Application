@@ -147,6 +147,13 @@ public class ForumPostAdapter extends RecyclerView.Adapter<ForumPostAdapter.MyVi
                             .child(post.getPostId()).removeValue();
             }
         });
+
+        holder.commentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                commentListener.viewComments(post.getPostId());
+            }
+        });
     }
 
     @Override
