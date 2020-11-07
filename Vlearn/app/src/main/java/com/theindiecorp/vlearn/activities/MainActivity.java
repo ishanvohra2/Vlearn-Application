@@ -67,6 +67,11 @@ public class MainActivity extends AppCompatActivity {
                         auth.signOut();
                         startActivity(new Intent(MainActivity.this, LoginActivity.class));
                         finish();
+                        break;
+
+                    case R.id.profile_item:
+                        startActivity(new Intent(MainActivity.this, ProfileViewActivity.class));
+                        break;
                 }
                 return false;
             }

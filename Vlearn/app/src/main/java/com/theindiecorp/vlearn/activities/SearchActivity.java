@@ -54,7 +54,7 @@ public class SearchActivity extends AppCompatActivity {
         SearchView searchView = findViewById(R.id.search_view);
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, LinearLayoutManager.VERTICAL));
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL));
 
         adapter = new SearchResourceAdapter(this, new ArrayList<Course>());
         recyclerView.setAdapter(adapter);

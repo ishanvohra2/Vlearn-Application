@@ -4,14 +4,15 @@
 
     <item
         android:id="@+id/log_out_item"
-        android:title="Log Out"
+        android:title="@string/log_out"
         android:icon="@drawable/ic_baseline_power_settings_new_24"
-        app:showAsAction="always"/>
+        app:showAsAction="always"
+        android:visible="false"/>
 
     <item
         android:id="@+id/profile_item"
-        android:title="Profile"
-        android:actionLayout="@layout/profile_menu_item"
+        android:title="@string/profile"
+        android:icon="@drawable/ic_baseline_person_pin_24"
         app:showAsAction="always"/>
 
 </menu>
