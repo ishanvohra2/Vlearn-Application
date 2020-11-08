@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -50,12 +51,20 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MAIN ACTIVITY";
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
+    private ShimmerFrameLayout shimmerFrameLayout, latestShimmerLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         final FirebaseAuth auth = FirebaseAuth.getInstance();
+
+        shimmerFrameLayout = findViewById(R.id.shimmer);
+        shimmerFrameLayout.startShimmer();
+
+        latestShimmerLayout = findViewById(R.id.latest_shimmer_layout);
+        latestShimmerLayout.startShimmer();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -77,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        RecyclerView latestCourseList = findViewById(R.id.latest_course_rv);
+        final RecyclerView latestCourseList = findViewById(R.id.latest_course_rv);
         latestCourseList.setLayoutManager(new LinearLayoutManager(this));
         final LatestCourseAdapter latestCourseAdapter = new LatestCourseAdapter(this, new ArrayList<Course>());
         latestCourseList.setAdapter(latestCourseAdapter);
@@ -85,6 +94,10 @@ public class MainActivity extends AppCompatActivity {
         databaseReference.child("courses").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                latestShimmerLayout.setVisibility(View.GONE);
+                latestShimmerLayout.stopShimmer();
+                latestCourseList.setVisibility(View.VISIBLE);
+
                 if(dataSnapshot.exists()){
                     ArrayList<Course> courses = new ArrayList<>();
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()){
@@ -105,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
         final LinearLayout continueLayout = findViewById(R.id.continue_layout);
 
-        RecyclerView continueRecycler = findViewById(R.id.continue_recycler);
+        final RecyclerView continueRecycler = findViewById(R.id.continue_recycler);
         continueRecycler.setLayoutManager(new LinearLayoutManager(this));
         final ContinueCourseAdapter continueCourseAdapter = new ContinueCourseAdapter(this, new ArrayList<Course>());
         continueRecycler.setAdapter(continueCourseAdapter);
@@ -114,6 +127,10 @@ public class MainActivity extends AppCompatActivity {
                 .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                shimmerFrameLayout.stopShimmer();
+                shimmerFrameLayout.setVisibility(View.GONE);
+                continueRecycler.setVisibility(View.VISIBLE);
+
                 if(dataSnapshot.exists()){
                     ArrayList<Course> courses = new ArrayList<>();
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()){

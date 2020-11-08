@@ -72,13 +72,33 @@
                android:layout_marginStart="12dp"
                android:layout_marginEnd="12dp"/>
 
+           <com.facebook.shimmer.ShimmerFrameLayout
+               android:id="@+id/shimmer"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               app:shimmer_duration="700">
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal">
+
+                   <include layout="@layout/my_course_shimmer_layout"/>
+                   <include layout="@layout/my_course_shimmer_layout"/>
+                   <include layout="@layout/my_course_shimmer_layout"/>
+
+               </LinearLayout>
+
+           </com.facebook.shimmer.ShimmerFrameLayout>
+
            <androidx.recyclerview.widget.RecyclerView
                android:id="@+id/continue_recycler"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:orientation="horizontal"
                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-               tools:listitem="@layout/course_menu_item" />
+               tools:listitem="@layout/course_menu_item"
+               android:visibility="gone"/>
 
        </LinearLayout>
 
@@ -93,13 +113,33 @@
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"/>
 
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/latest_shimmer_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:shimmer_duration="700">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/latest_course_shimmer"/>
+                <include layout="@layout/latest_course_shimmer"/>
+                <include layout="@layout/latest_course_shimmer"/>
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/latest_course_rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/latest_course_item" />
+            tools:listitem="@layout/latest_course_item"
+            android:visibility="gone"/>
 
     </LinearLayout>
 
