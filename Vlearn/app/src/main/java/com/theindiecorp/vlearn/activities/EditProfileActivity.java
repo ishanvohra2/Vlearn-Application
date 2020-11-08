@@ -23,7 +23,6 @@ import com.theindiecorp.vlearn.data.User;
 public class EditProfileActivity extends AppCompatActivity {
 
     private EditText nameEt, bioEt, emailEt;
-    private Spinner ageSpinner;
     private Button doneBtn;
 
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -39,10 +38,11 @@ public class EditProfileActivity extends AppCompatActivity {
         nameEt = findViewById(R.id.display_name_et);
         bioEt = findViewById(R.id.bio_et);
         emailEt = findViewById(R.id.email_et);
-        ageSpinner = findViewById(R.id.spinner);
         doneBtn = findViewById(R.id.done_btn);
 
-//        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item,);
+        final Spinner spinner = findViewById(R.id.spinner);
+        String[] sexSpinner = new String[]{"Male", "Female", "Others"};
+        spinner.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, sexSpinner));
 
         databaseReference.child("users").child(userId).addValueEventListener(new ValueEventListener() {
             @Override
@@ -82,6 +82,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     return;
                 }
 
+                databaseReference.child("users").child(userId).child("sex").setValue(User.Sex.values()[spinner.getSelectedItemPosition()]);
                 databaseReference.child("users").child(userId).child("displayName").setValue(nameEt.getText().toString());
                 databaseReference.child("users").child(userId).child("bio").setValue(bioEt.getText().toString());
                 databaseReference.child("users").child(userId).child("email").setValue(emailEt.getText().toString());

@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -71,6 +72,7 @@ public class SubscribedCourseActivity extends AppCompatActivity implements Topic
         final TextView descriptionTv = findViewById(R.id.course_description_tv);
         final TextView keyPointsTv = findViewById(R.id.key_points_tv);
         final FloatingActionButton floatingActionButton = findViewById(R.id.add_forum_post_fab);
+        final ImageView imageView = findViewById(R.id.course_image);
 
         courseId = getIntent().getStringExtra("courseId");
 
@@ -119,6 +121,15 @@ public class SubscribedCourseActivity extends AppCompatActivity implements Topic
                 courseNameTv.setText(course.getNameOfCourse());
                 descriptionTv.setText(course.getCourseDescription());
                 keyPointsTv.setText(course.getKeyPoints());
+
+                if(course.getImgPath() != null){
+                    if(!course.getImgPath().isEmpty()){
+                        Glide.with(SubscribedCourseActivity.this)
+                                .load(course.getImgPath())
+                                .into(imageView);
+                    }
+                }
+
             }
 
             @Override

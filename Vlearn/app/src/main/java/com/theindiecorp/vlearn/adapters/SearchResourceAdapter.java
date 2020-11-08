@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -61,6 +62,14 @@ public class SearchResourceAdapter extends RecyclerView.Adapter<SearchResourceAd
         final Course course = dataSet.get(position);
 
         holder.courseNameTv.setText(course.getNameOfCourse());
+
+        if(course.getImgPath() != null){
+            if(!course.getImgPath().isEmpty()){
+                Glide.with(context.getApplicationContext())
+                        .load(course.getImgPath())
+                        .into(holder.courseImage);
+            }
+        }
 
         FirebaseDatabase.getInstance().getReference("users").child(course.getAuthorId())
                 .child("displayName").addListenerForSingleValueEvent(new ValueEventListener() {

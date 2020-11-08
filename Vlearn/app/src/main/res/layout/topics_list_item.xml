@@ -6,14 +6,16 @@
     android:background="@drawable/button_background_stroke"
     android:orientation="horizontal"
     android:padding="8dp"
-    android:layout_margin="8dp">
+    android:layout_margin="8dp"
+    android:gravity="center">
 
     <ImageView
         android:id="@+id/progress_bar"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/circle"
-        android:padding="5dp"/>
+        android:padding="5dp"
+        android:gravity="center_vertical"/>
 
     <TextView
         android:id="@+id/topic_tv"

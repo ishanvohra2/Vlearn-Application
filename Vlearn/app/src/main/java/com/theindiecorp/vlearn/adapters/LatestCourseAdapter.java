@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,13 +44,15 @@ public class LatestCourseAdapter extends RecyclerView.Adapter<LatestCourseAdapte
     public class MyViewHolder extends RecyclerView.ViewHolder{
         private TextView nameTv, publisherName, publishDate;
         private ImageView courseImg;
-        public MyViewHolder(View itemView){
+
+        public MyViewHolder(View itemView) {
             super(itemView);
             nameTv = itemView.findViewById(R.id.course_name_tv);
             publisherName = itemView.findViewById(R.id.publisher_tv);
             publishDate = itemView.findViewById(R.id.uploaded_at_tv);
             courseImg = itemView.findViewById(R.id.course_image);
         }
+
     }
 
     public LatestCourseAdapter(Context context, ArrayList<Course> dataSet){
@@ -75,20 +78,9 @@ public class LatestCourseAdapter extends RecyclerView.Adapter<LatestCourseAdapte
 
         if(course.getImgPath() != null) {
             if(!course.getImgPath().isEmpty()){
-                StorageReference imageReference = storage.getReference().child(course.getImgPath());
-                imageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        Glide.with(context.getApplicationContext())
-                                .load(uri)
-                                .into(holder.courseImg);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        Log.d("Course Image", exception.getMessage());
-                    }
-                });
+                Glide.with(context.getApplicationContext())
+                        .load(course.getImgPath())
+                        .into(holder.courseImg);
             }
         }
 
@@ -109,6 +101,8 @@ public class LatestCourseAdapter extends RecyclerView.Adapter<LatestCourseAdapte
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                Toast.makeText(context, course.getCourseId(), Toast.LENGTH_SHORT).show();
+
                 context.startActivity(new Intent(context, ResourceViewActivity.class)
                         .putExtra("courseId", course.getCourseId())
                         .putExtra("resourceTyoe", course.getType()));

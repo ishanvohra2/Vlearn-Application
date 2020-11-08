@@ -24,29 +24,22 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <FrameLayout
+                <ImageButton
+                    android:id="@+id/back_btn"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_baseline_arrow_back_24"
+                    android:background="@android:color/transparent"
+                    android:scaleType="centerCrop"
+                    android:layout_gravity="top|start"/>
+
+                <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                    android:id="@+id/youtube_player_view"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-                        android:id="@+id/youtube_player_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:autoPlay="false"
-                        app:showFullScreenButton="true"
-                        app:showYouTubeButton="false"
-                        />
-
-                    <ImageButton
-                        android:id="@+id/back_btn"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/ic_baseline_arrow_back_24"
-                        android:background="@android:color/transparent"
-                        android:scaleType="centerCrop"
-                        android:layout_gravity="top|start"/>
-
-                </FrameLayout>
+                    android:layout_height="wrap_content"
+                    app:autoPlay="false"
+                    app:showFullScreenButton="true"
+                    app:showYouTubeButton="false" />
 
                 <TextView
                     android:id="@+id/course_name_tv"
