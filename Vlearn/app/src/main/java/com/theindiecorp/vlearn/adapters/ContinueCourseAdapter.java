@@ -16,6 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.theindiecorp.vlearn.R;
@@ -30,6 +36,7 @@ public class ContinueCourseAdapter extends RecyclerView.Adapter<ContinueCourseAd
     private Context context;
     private ArrayList<Course> dataset;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
+    private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 
     public void setCourses(ArrayList<Course> dataset){
         this.dataset = dataset;
@@ -93,6 +100,22 @@ public class ContinueCourseAdapter extends RecyclerView.Adapter<ContinueCourseAd
                         putExtra("courseId", course.getCourseId()));
             }
         });
+
+        databaseReference.child("studyingCourses").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(course.getCourseId())
+                .child("progress").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists())
+                            holder.progressTv.setText(dataSnapshot.getValue(String.class));
+                        else
+                            holder.progressTv.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
 
     }
 

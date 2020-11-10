@@ -22,6 +22,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -70,6 +72,7 @@ public class SubscribedCourseActivity extends AppCompatActivity implements Topic
         final TextView courseNameTv = findViewById(R.id.course_name_tv);
         final TextView descriptionTv = findViewById(R.id.course_description_tv);
         final TextView keyPointsTv = findViewById(R.id.key_points_tv);
+        final TextView progressTv = findViewById(R.id.enrollment_number_tv);
         final FloatingActionButton floatingActionButton = findViewById(R.id.add_forum_post_fab);
 
         courseId = getIntent().getStringExtra("courseId");
@@ -119,6 +122,22 @@ public class SubscribedCourseActivity extends AppCompatActivity implements Topic
                 courseNameTv.setText(course.getNameOfCourse());
                 descriptionTv.setText(course.getCourseDescription());
                 keyPointsTv.setText(course.getKeyPoints());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        databaseReference.child("studyingCourses").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(courseId)
+                .child("progress").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                    progressTv.setText(dataSnapshot.getValue(String.class));
+                else
+                    progressTv.setVisibility(View.GONE);
             }
 
             @Override
@@ -293,12 +312,20 @@ public class SubscribedCourseActivity extends AppCompatActivity implements Topic
     }
 
     @Override
-    public void openTopic(int position, String url) {
-        Intent intent = new Intent(this, TopicViewActivity.class);
-        intent.putExtra("courseId", courseId);
-        intent.putExtra("position", position);
-        intent.putExtra("url", url);
-        startActivity(intent);
+    public void openTopic(final int position, final String url) {
+        databaseReference.child("studyingCourses").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(courseId)
+                .child("progress").setValue(position + 1 + " completed").addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Intent intent = new Intent(SubscribedCourseActivity.this, TopicViewActivity.class);
+                    intent.putExtra("courseId", courseId);
+                    intent.putExtra("position", position);
+                    intent.putExtra("url", url);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     @Override
