@@ -31,27 +31,20 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <FrameLayout
+                    <ImageButton
+                        android:id="@+id/back_btn"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_baseline_arrow_back_24"
+                        android:background="@android:color/transparent"
+                        android:scaleType="centerCrop"/>
+
+                    <ImageView
+                        android:id="@+id/course_image"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:id="@+id/course_image"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:src="@drawable/ic_pencil_holder"
-                            android:layout_gravity="center|top"/>
-
-                        <ImageButton
-                            android:id="@+id/back_btn"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:src="@drawable/ic_baseline_arrow_back_24"
-                            android:background="@android:color/transparent"
-                            android:scaleType="centerCrop"
-                            android:layout_gravity="top|start"/>
-
-                    </FrameLayout>
+                        android:layout_height="180dp"
+                        android:src="@drawable/ic_pencil_holder"
+                        android:layout_gravity="center|top"/>
 
                     <TextView
                         android:id="@+id/category_tv"

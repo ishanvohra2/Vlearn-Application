@@ -11,10 +11,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -56,6 +58,7 @@ public class ResourceViewActivity extends AppCompatActivity implements TopicsLis
         final TextView keyPointsTv = findViewById(R.id.key_points_tv);
         final Button getCourseBtn = findViewById(R.id.get_course_btn);
         final Button viewOwnedBtn = findViewById(R.id.view_library_btn);
+        final ImageView imageView = findViewById(R.id.course_image);
 
         final String courseId = getIntent().getStringExtra("courseId");
         final String resourceType = getIntent().getStringExtra("resourceType");
@@ -82,6 +85,7 @@ public class ResourceViewActivity extends AppCompatActivity implements TopicsLis
             }
         });
 
+        assert courseId != null;
         databaseReference.child("courseTopics").child(courseId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -108,6 +112,15 @@ public class ResourceViewActivity extends AppCompatActivity implements TopicsLis
                 enrollmentTv.setText(course.getEnrollmentNo() + " students");
                 descriptionTv.setText(course.getCourseDescription());
                 keyPointsTv.setText(course.getKeyPoints());
+
+                if(course.getImgPath() != null){
+                    if(!course.getImgPath().isEmpty()){
+                        Glide.with(ResourceViewActivity.this)
+                                .load(course.getImgPath())
+                                .into(imageView);
+                    }
+                }
+
             }
 
             @Override

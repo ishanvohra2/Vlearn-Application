@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
                     ArrayList<Course> courses = new ArrayList<>();
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                         Course course = snapshot.getValue(Course.class);
+                        course.setCourseId(snapshot.getKey());
                         courses.add(course);
                     }
                     Collections.reverse(courses);
@@ -119,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         final LinearLayout continueLayout = findViewById(R.id.continue_layout);
 
         final RecyclerView continueRecycler = findViewById(R.id.continue_recycler);
-        continueRecycler.setLayoutManager(new LinearLayoutManager(this));
+        continueRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         final ContinueCourseAdapter continueCourseAdapter = new ContinueCourseAdapter(this, new ArrayList<Course>());
         continueRecycler.setAdapter(continueCourseAdapter);
 
@@ -135,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
                     ArrayList<Course> courses = new ArrayList<>();
                     for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                         Course course = snapshot.getValue(Course.class);
+                        course.setCourseId(snapshot.getKey());
                         courses.add(course);
                     }
                     Collections.reverse(courses);
